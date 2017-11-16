@@ -1,5 +1,8 @@
 import requests
 import csv
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.interpolate import UnivariateSpline
 from lxml import html
 
 csvdata=[]
@@ -17,7 +20,14 @@ for x in range(2001,2017):
         list.append(float(data[0]))
 
     csvdata.append(list)
+    x=np.arange(0,27)
+    spl = UnivariateSpline(x, list)
+    spl.set_smoothing_factor(0.1)
+    xs=np.linspace(0,26,1000)
+    plt.plot(xs, spl(xs), 'b', lw=0.5)               # we can use the spl as a function
     print(list)
+
+plt.show()
 datafile=open('edmonton.csv','w')
 with datafile:
     writer = csv.writer(datafile)
