@@ -25,8 +25,7 @@ for i in range (0, 15):
     feature = np.append(feature, c._spline.tck[1])
 
 feature = np.reshape(feature, (15, 31))
-# pca = PCA()
-# pca.fit(feature)
-# print(np.shape(pca.components_))
-W, v = np.linalg.eig(np.cov(feature.T))
-W, v = W.real, v.real
+plt.plot(feature.T,'black')
+pca = PCA()
+plt.plot(pca.fit_transform(feature.T))
+plt.show()
